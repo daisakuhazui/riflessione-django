@@ -1,0 +1,50 @@
+version: '3'
+
+services:
+  nginx:
+    build: ./docker/nginx/
+    ports:
+      - "80:80"
+    restart: always
+    volumes:
+      - ./src:/src
+      - ./static:/static
+    depends_on:
+      - app
+  db:
+    build: ./docker/postgres/
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=riflessione
+      - POSTGRES_USER=riflessione
+      - POSTGRES_DB=riflessione
+  app:
+    build: .
+    command: './scripts/start_gunicorn.sh'
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - redis
+    environment:
+      - UPLOAD_STORAGE=local
+      - DB_HOST=db
+      - DB_PASSWORD=riflessione
+      - DB_USER=riflessione
+      - REDIS_HOST=redis
+      - WORKON_HOME=/root/.virtualenvs
+      - DISPLAY=:99
+      - DJANGO_ENV=development
+      - DEBUG=TRUE
+    env_file: .env
+    volumes:
+      - .:/app
+      - data-volume:/var/lib/postgresql/data
+      - ./static:/static
+    stdin_open: true
+    tty: true
+  redis:
+    image: redis
+
+volumes:
+  data-volume:

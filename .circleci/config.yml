@@ -1,0 +1,81 @@
+defaults: &defaults
+    working_directory: ~/app
+    machine:
+      image: ubuntu-1604:201903-01
+      docker_layer_caching: false
+    environment:
+      TZ: /usr/share/zoneinfo/Asia/Tokyo
+version: 2.1
+jobs:
+  build:
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          name: create .env file
+          command: ./scripts/create_envfile.sh
+      - run:
+          name: docker-compose build
+          command: docker-compose build
+      - run:
+          name: ls
+          command: ls
+      - run:
+          name: Running tests
+          command: |
+            docker-compose run app flake8
+            docker-compose run app ./scripts/test.sh
+      - persist_to_workspace:
+          root: ~/app
+          paths:
+              - ./*
+  deploy:
+    working_directory: ~/app
+    docker:
+      - image: docker:19-git
+    steps:
+      - attach_workspace:
+          at: ~/app
+      - setup_remote_docker
+      - run:
+          name: install python, pip, awscli, jq
+          command: |
+            apk add --update python \
+            jq \
+            python-dev \
+            py-pip \
+            build-base \
+            gcc \
+            abuild \
+            binutils \
+            binutils-doc \
+            gcc-doc \
+            bash \
+            && pip install --no-cache-dir awscli
+      - run:
+          name: ls
+          command: ls
+      - run:
+          name: docker build
+          command: docker build --no-cache -t app .
+      - run:
+          name: ECR Login
+          command: $(aws ecr get-login --no-include-email --region ap-northeast-1)
+      - run:
+          name: ECS deploy
+          no_output_timeout: 2400
+          command: ./scripts/circleci_ecs.sh
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                # TODO: Stg環境を用意する場合は master ブランチもデプロイ対象とする
+                # - master
+                - release
