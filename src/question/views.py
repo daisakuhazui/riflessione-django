@@ -26,6 +26,7 @@ class CategoryDetailView(DetailView):
     def get_context_data(self, **kwargs):
         # Get ONE question from all questions related to the category
         context = super(CategoryDetailView, self).get_context_data(**kwargs)
+        context['categories'] = Category.objects.all().order_by('id')
         context['question'] = Question.objects.filter(
             category=kwargs['object']).order_by('?')[:10].first
         return context

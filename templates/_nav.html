@@ -1,0 +1,29 @@
+{% load staticfiles %}
+<div id="header" class="bg-dark sticky-top">
+  <div class="container">
+    <nav class="nav navbar-expand-lg d-flex justify-content-between align-items-center">
+      <div class="nav-item">
+        <a class="h2 nav-link text-white" href="/">
+          <i class="fas fa-rocket"></i> Reflessione
+        </a>
+      </div>
+      <ul class="navbar-nav ">
+        <li class="nav-item">
+          <a class="nav-link text-white" href="/"><i class="fas fa-home"></i> HOME</a>
+        </li>
+        {% if categories %}
+          <li class="nav-item ">
+            <a class="nav-link dropdown-toggle text-white" href="/" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-tags"></i> CATEGORIES
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              {% for category in categories %}
+                <a class="dropdown-item" href="{% url 'question:category_detail' category.id %}">{{category.name}}</a>
+              {% endfor %}
+            </div>
+          </li>
+        {% endif %}
+      </ul>
+    </nav>
+  </div>
+</div>
