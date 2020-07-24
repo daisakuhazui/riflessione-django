@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'gunicorn',
     'bootstrap4',
+    'question',
 ]
 
 MIDDLEWARE = [

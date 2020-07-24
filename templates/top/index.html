@@ -5,14 +5,40 @@
 {% block container %}
 <div class="container">
   <div class="row">
-    <div class="col-md-3 col-sm-4">
-      <!-- /left sec -->
+    {% for channel in channels %}
+    <div class="col-sm-6 col-md-3 my-2">
+      <div class="card img-thumbnail" style="width: 20rem;">
+        <a href="{% url 'music:channel_detail' channel.id %}">
+          <img class="card-img-top" src="{{ channel.image.url }}" width="300px" height="200px" style="object-fit: cover;">
+        </a>
+        <div class="card-body px-2 py-3">
+          <a class="text-secondary" href="{% url 'music:channel_detail' channel.id %}">
+            <h5 class="card-title font-weight-bold">{{channel.name}}</h5>
+          </a>
+          <hr>
+          <p class="card-text">
+            {{channel.description}}
+          </p>
+        </div>
+      </div>
     </div>
+    {% endfor %}
+  </div>
 
-    <h2>TOP PAGE</h2>
 
+  <div class="row">
+    <div class="col-md-3 col-sm-4">
+      <h2>TOP PAGE</h2>
+      {% for c in categories %}
+
+
+        <p>
+          {{ c.name }}
+        </p>
+      {% endfor %}
+    </div>
   </div>
   <hr>
+  <script></script>
 </div>
-<!-- /.container -->
 {% endblock container %}

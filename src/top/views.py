@@ -3,6 +3,7 @@ from django.views.generic import View
 from django.template.response import TemplateResponse
 from django.views.decorators.cache import never_cache
 from django.utils.decorators import method_decorator
+from question.models import Category
 
 
 class Index(View):
@@ -16,5 +17,7 @@ class Index(View):
         return super(Index, self).dispatch(*args, **kwargs)
 
     def get(self, request, *args, **kwargs):
-        # Get Channel data
-        return TemplateResponse(request, self.template)
+        # Get categories
+        categories = Category.objects.all().order_by('id')
+        context = {'categories': categories}
+        return TemplateResponse(request, self.template, context)
