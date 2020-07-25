@@ -21,3 +21,20 @@ class Index(View):
         categories = Category.objects.all().order_by('id')
         context = {'categories': categories}
         return TemplateResponse(request, self.template, context)
+
+
+class Guide(View):
+    """ Guide Page """
+    http_method_names = ["get"]
+    template = "top/guide.html"
+
+    # Disable cache decorator
+    @method_decorator(never_cache)
+    def dispatch(self, *args, **kwargs):
+        return super(Guide, self).dispatch(*args, **kwargs)
+
+    def get(self, request, *args, **kwargs):
+        # Get categories
+        categories = Category.objects.all().order_by('id')
+        context = {'categories': categories}
+        return TemplateResponse(request, self.template, context)
