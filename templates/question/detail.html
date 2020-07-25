@@ -7,10 +7,14 @@
 
 {% block container %}
   <div class="container">
-    <div class="row">
-      <p>
-        {{ question.text }}
-      </p>
+    <ol class="breadcrumb">
+        <li><a href="/">HOME</a> / </li>
+        <li class="active"><a href="{% url 'question:category_detail' object.id %}">{{ object }}</a></li>
+      </ol>
+    <div class="row" style="min-height:calc(100vh - 150px)">
+      <h2 class="font-italic mx-auto my-auto">
+        "{{ question.text }}"
+      </h2>
     </div>
   </div>
 {% endblock %}
