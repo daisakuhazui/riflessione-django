@@ -40,9 +40,9 @@ jobs:
       - run:
           name: install python, pip, awscli, jq
           command: |
-            apk add --update python \
+            apk add --update python2 \
             jq \
-            python-dev \
+            python2-dev \
             py-pip \
             build-base \
             gcc \
