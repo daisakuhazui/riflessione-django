@@ -3,6 +3,7 @@ import os
 from config.settings.base import *
 
 ALLOWED_HOSTS = ['*']
+SITE_URL = 'https://daisaku-portfolio.com/'
 STATIC_URL = 'https://' + os.environ['STATIC_URL'] + '/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'statics')
