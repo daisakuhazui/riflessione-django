@@ -3,7 +3,7 @@ SERVER=0.0.0.0
 PORT=8000
 PROJECT_DIR=/app
 USER=root
-DJANGO_SETTINGS_MODULE=config.settings
+DJANGO_SETTINGS_MODULE=config.settings.development
 TIMEOUT=60
 GUNICORN="gunicorn -b $SERVER:$PORT config.wsgi --timeout ${TIMEOUT} --preload --log-level debug --access-logfile -"
 BASE_CMD="$GUNICORN"
@@ -19,8 +19,8 @@ if [ ${DJANGO_ENV} == "production" ] || [ ${DJANGO_ENV} == "staging" ]; then
   echo "DJANGO_ENV: ${DJANGO_ENV}"
   echo
   echo "Uploading Static files to S3..."
-  python src/manage.py migrate --settings config.settings
-  python src/manage.py collectstatic --no-input --settings config.settings
+  python src/manage.py migrate --settings config.settings.${DJANGO_ENV}
+  python src/manage.py collectstatic --no-input --settings config.settings.${DJANGO_ENV}
   python src/manage.py custom_createsuperuser --username admin --email admin@example.com --password ${DJANGO_ADMIN_PASSWORD}
   echo
   echo "DONE Uploading Static files to S3"
@@ -29,7 +29,7 @@ fi
 if [[ -z "${DJANGO_ENV}" ]]; then
   START="$BASE_CMD --env DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE}"
 else
-  START="$BASE_CMD --env DJANGO_SETTINGS_MODULE=config.settings"
+  START="$BASE_CMD --env DJANGO_SETTINGS_MODULE=config.settings.${DJANGO_ENV}"
 fi
 
 echo $START

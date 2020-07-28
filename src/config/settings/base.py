@@ -14,7 +14,7 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 SRC_DIR = os.path.dirname(os.path.dirname(__file__))
-BASE_DIR = os.path.join(SRC_DIR, "../")
+BASE_DIR = os.path.join(SRC_DIR, "../..")
 
 
 # Quick-start development settings - unsuitable for production
@@ -24,9 +24,8 @@ BASE_DIR = os.path.join(SRC_DIR, "../")
 SECRET_KEY = '_f471x=vk1(lcam798q*yc_)p25rnra+=+l6s-3d)$c$ei5ox$'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -142,3 +141,7 @@ STATICFILES_FINDERS = (
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
