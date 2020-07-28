@@ -21,6 +21,7 @@ if [ ${DJANGO_ENV} == "production" ] || [ ${DJANGO_ENV} == "staging" ]; then
   echo "Uploading Static files to S3..."
   python src/manage.py migrate --settings config.settings
   python src/manage.py collectstatic --no-input --settings config.settings
+  python src/manage.py custom_createsuperuser --username admin --email admin@example.com --password ${DJANGO_ADMIN_PASSWORD}
   echo
   echo "DONE Uploading Static files to S3"
 fi
