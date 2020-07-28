@@ -19,8 +19,8 @@ if [ ${DJANGO_ENV} == "production" ] || [ ${DJANGO_ENV} == "staging" ]; then
   echo "DJANGO_ENV: ${DJANGO_ENV}"
   echo
   echo "Uploading Static files to S3..."
-  python src/manage.py migrate --settings config.settings.${DJANGO_ENV}
-  python src/manage.py collectstatic --no-input --settings config.settings.${DJANGO_ENV}
+  python src/manage.py migrate --settings config.settings
+  python src/manage.py collectstatic --no-input --settings config.settings
   echo
   echo "DONE Uploading Static files to S3"
 fi
