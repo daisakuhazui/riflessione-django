@@ -2,4 +2,4 @@
 
 cd src
 pwd
-python manage.py test --settings=config.settings -v 3
+python manage.py test --settings=config.settings.test -v 3
