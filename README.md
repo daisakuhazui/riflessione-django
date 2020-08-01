@@ -11,8 +11,8 @@ Riflessioneサービスのリポジトリ
 - リポジトリをクローンする
 
 ```bach
-git clone git@github.com/daisakuhazui/introspective-question-genarator.git
-cd introspective-question-genarator
+git clone git@github.com:daisakuhazui/riflessione-django.git
+cd riflessione-django
 ```
 
 ## .envファイル設定
