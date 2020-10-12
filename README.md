@@ -4,6 +4,10 @@ The Repository about Riflessione Service
 
 Describe the procedure for building the Development Environment and various procedures required for Development.
 
+## AWS Architecture
+
+![aws](./img/aws.png)
+
 ## Build the Development Environment
 
 - Assuming development with Mac OS X
