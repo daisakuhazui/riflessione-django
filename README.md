@@ -1,73 +1,71 @@
-Riflessioneサービスのリポジトリ
+The Repository about Riflessione Service
 
 =================================
 
-開発環境の構築手順、また開発時に必要となる各種手順について記載する。
+Describe the procedure for building the Development Environment and various procedures required for Development.
 
-## 開発環境構築
+## Build the Development Environment
 
-- Mac OSXによる開発を前提とする
-- Docker for Macをインストールする
-- リポジトリをクローンする
+- Assuming development with Mac OS X
+- Install Docker for Mac
+- Clone this repository
 
 ```bach
 git clone git@github.com:daisakuhazui/riflessione-django.git
 cd riflessione-django
 ```
 
-## .envファイル設定
+## About .env file
 
-`env.sample` ファイルをコピーして `.env` を作成。
-`.env` にAWSアクセスキーなど必要な情報を入力する
+Copy `env.sample` file, and then rename it `.env`.
+Enter the required information such as AWS Access Key in `.env`.
 
 ```bash
 cp env.sample .env
 ```
 
-## Dockerコンテナをビルド、データのインポート
+## Build the Docker Container
 ```bash
 make build
 ```
-
-でDockerコンテナのビルドを行い、
 
 ```bash
 make migrate
 ```
 
-## 各種コマンド
+## Various Procedures
 
-### Dockerコンテナのビルド
+### Build the Docker Container
 
 ```bash
 make build
 ```
 
-### Dockerコンテナの起動
+### Start the Docker Container
 
 ```bash
 make up
 ```
 
-### テストの実行
+### Run Test
 
 ```bash
 make test
 ```
 
-### Docker appコンテナ内で作業
+### Work inside the Docker app Container
 
 ```bash
 make run
 ```
 
-### Docker コンテナ停止
+### Stop the Docker Container
 
 ```bash
 make stop
 ```
 
-### Djangoマイグレーション
+### Execute Django Migration
 
 ```bash
 make migrate
