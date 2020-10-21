@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'gunicorn',
     'bootstrap4',
     'question',
+    'user',
 ]
 
 MIDDLEWARE = [
