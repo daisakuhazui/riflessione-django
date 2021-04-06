@@ -9,7 +9,7 @@ django-debug-toolbar==2.2
 django-paypal==1.0.0
 django-pdb==0.6.2
 django-redis==4.10.0
-django-registration==3.1
+django-registration==3.1.2
 django-storages==1.9.1
 django-taggit==1.2.0
 docutils==0.16
